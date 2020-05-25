@@ -1,0 +1,24 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: awsme
+      role: frontend
+  template:
+    metadata:
+      name: frontend
+      labels:
+        app: awsme
+        role: frontend
+    spec:
+      containers:
+      - name: frontend
+        image: altorosbarrywilliams/aws-sample-app:1.0.0
+        command: ["app", "-mode=frontend", "-backend-service=http://backend:8080", "-port=80"]
+        ports:
+        - name: frontend
+          containerPort: 80
